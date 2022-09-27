@@ -36,6 +36,8 @@ spec:
       {{- if .Values.director.priorityClassName }}
       priorityClassName: {{ .Values.director.priorityClassName }}
       {{- end }}
+      securityContext:
+        {{- toYaml .Values.director.podSecurityContext | nindent 8 }}
       containers:
       - env:
         - name: DASHBOARD_URL
@@ -149,6 +151,8 @@ spec:
           timeoutSeconds: {{ .Values.director.readinessProbe.timeoutSeconds }}
           successThreshold: {{ .Values.director.readinessProbe.successThreshold }}
           failureThreshold: {{ .Values.director.readinessProbe.failureThreshold }}
+        securityContext:
+          {{- toYaml .Values.director.securityContext | nindent 12 }}
       restartPolicy: Always
       {{- with (.Values.director.serviceAccount.name | default .Values.director.serviceAccountName) }}
       serviceAccountName: {{ . | quote }}

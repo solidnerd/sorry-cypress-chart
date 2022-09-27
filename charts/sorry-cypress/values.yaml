@@ -84,6 +84,18 @@ api:
   # Additional pod labels
   podLabels: {}
 
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+
   ingress:
     ingressClassName: nginx
     labels: {}
@@ -166,6 +178,18 @@ dashboard:
 
   # Additional pod labels
   podLabels: {}
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
 
   ingress:
     enabled: true
@@ -273,6 +297,17 @@ director:
 
   # Additional pod labels
   podLabels: {}
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
 
   service:
     port: 1234
@@ -410,6 +445,27 @@ runCleaner:
 
   # Name of the existing priority class to be used by pod(s)
   priorityClassName: ""
+  resources:
+    requests:
+      cpu: 50m
+      memory: 60Mi
+
+  podSecurityContext:
+    securityContext:
+      seccompProfile:
+          type: RuntimeDefault
+      fsGroup: 1001
+      runAsGroup: 1001
+      runAsUser: 1001
+
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
 
 imagePullSecrets: []
 # An optional array of imagePullSecrets that are used to download images from a private registry

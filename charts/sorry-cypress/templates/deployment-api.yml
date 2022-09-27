@@ -39,6 +39,8 @@ spec:
       {{- if .Values.api.priorityClassName }}
       priorityClassName: {{ .Values.api.priorityClassName }}
       {{- end }}
+      securityContext:
+        {{- toYaml .Values.api.podSecurityContext | nindent 8 }}
       containers:
       - env:
         {{- if or (.Values.mongodb.internal_db.enabled) (.Values.mongodb.external_db.enabled) }}
@@ -78,6 +80,8 @@ spec:
           timeoutSeconds: {{ .Values.api.readinessProbe.timeoutSeconds }}
           successThreshold: {{ .Values.api.readinessProbe.successThreshold }}
           failureThreshold: {{ .Values.api.readinessProbe.failureThreshold }}
+        securityContext:
+          {{- toYaml .Values.api.securityContext | nindent 12 }}
       restartPolicy: Always
       serviceAccountName: ""
       volumes: null
